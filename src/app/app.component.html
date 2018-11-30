@@ -1,0 +1,30 @@
+<div class="jumbotron row">
+    <div class="col-md-6">
+        <h1 class="text-center">Cadastro de Pessoas</h1>
+        <form class="form-group">
+            <label class="form-control">Digite seu nome e sobrenome:</label>
+            <input class="form-control" type="text" #Nome name="nome" placeholder="Nome...">
+            <input class="form-control" type="text" #Sobrenome name="sobrenome" placeholder="Sobrenome...">
+            <button class="btn btn-primary form-control" (click)="inserirItem(Nome.value, Sobrenome.value)">Inserir</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h1 class="text-center mb-1">Lista de Pessoas</h1>
+        <form class="form-group mt-5" #f="ngForm">
+            <input ngModel name="key" type="hidden" />
+            <input class="form-control" ngModel name="novoNome" type="text" />
+            <input class="form-control" ngModel name="novoSobrenome" type="text" />
+            <button class="form-control btn btn-dark" (click)="atualizarItem(f)">Atualizar</button>
+        </form>
+        
+        <ul class="list-unstyled mt-5">
+            <li *ngFor="let item of items | async" class="list-group-item list-group-item-action list-group-item-light">
+                <label (click)="atualizarCampo(item.key, item.nome, item.sobrenome, f)">{{ item.nome }} {{ item.sobrenome }} </label>
+                <button class="btn btn-dark float-right" (click)="apagarItem(item.key)">Apagar</button>
+            </li>
+        </ul>
+        <small>*Clique no nome para editar</small>
+        <br>
+        <button class="btn btn-danger" (click)="apagarTudo()">Apagar Tudo</button>
+    </div>
+</div>
